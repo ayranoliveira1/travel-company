@@ -1,9 +1,9 @@
 const { PrismaClient } = require("@prisma/client");
 
-const prisma = new PrismaClient();
+const db = new PrismaClient();
 
 async function main() {
-   await prisma.trip.createMany({
+   await db.trip.createMany({
       data: [
          {
             name: "Hotel Aurora",
@@ -254,10 +254,10 @@ async function main() {
 
 main()
    .then(async () => {
-      await prisma.$disconnect();
+      await db.$disconnect();
    })
    .catch(async (e) => {
       console.error(e);
-      await prisma.$disconnect();
+      await db.$disconnect();
       process.exit(1);
    });
