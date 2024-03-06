@@ -7,7 +7,7 @@ import Input from "./components/input";
 
 const Search = () => {
    return (
-      <div className="container mx-auto p-5 bg-search-background bg-cover bg-center bg-no-repeat">
+      <div className="container mx-auto p-4 bg-search-background bg-cover bg-center bg-no-repeat">
          <h1 className="font-semibold text-xl text-secondary text-center">
             Encontre sua proxima <span className="text-primary">viagem!</span>
          </h1>
