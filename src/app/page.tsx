@@ -1,17 +1,9 @@
-"use client";
-
-import { signIn, signOut, useSession } from "next-auth/react";
+import Search from "./components/TripInput/search";
 
 export default function Home() {
-   const { data } = useSession();
-
-   const handlerLoginClick = () => {
-      return signIn("google");
-   };
-
-   const handlerLogoutClick = () => {
-      return signOut();
-   };
-
-   return <div className=""></div>;
+   return (
+      <>
+         <Search />
+      </>
+   );
 }
