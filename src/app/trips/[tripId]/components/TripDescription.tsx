@@ -6,7 +6,7 @@ interface TripDescriptionProps {
 
 const TripDescription = ({ description }: TripDescriptionProps) => {
    return (
-      <div className="flex flex-col px-5 py-10">
+      <div className="flex flex-col px-5 py-10 gap-1">
          <h2 className="font-semibold text-secondary">Sobre a viagem</h2>
          <p className="text-xs text-secondary leading-5">{description}</p>
       </div>
