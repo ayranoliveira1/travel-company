@@ -1,6 +1,8 @@
 import { db } from "@/lib/prisma";
 import TripHeader from "./components/TripHeader";
 import TripReservation from "./components/TripReservation";
+import TripDescription from "./components/TripDescription";
+import { tr } from "date-fns/locale";
 
 const TripDetails = async ({ params }: { params: { tripId: string } }) => {
    const trip = await db.trip.findUnique({
@@ -18,6 +20,10 @@ const TripDetails = async ({ params }: { params: { tripId: string } }) => {
          {/* Reserva */}
 
          <TripReservation trip={trip} />
+
+         {/* Description */}
+
+         <TripDescription description={trip.description} />
       </div>
    );
 };
