@@ -20,7 +20,7 @@ const Header = () => {
    };
 
    const handleOpenMenuClick = () => {
-      return setMenuIsOpen(true);
+      return setMenuIsOpen(!menuIsOpen);
    };
 
    return (
@@ -55,7 +55,7 @@ const Header = () => {
                />
 
                {menuIsOpen && (
-                  <div className="absolute top-12 left-0 w-full h-full bg-white rounded-lg shadow-lg flex flex-col justify-center items-center">
+                  <div className=" z-50 absolute top-12 left-0 w-full h-full bg-white rounded-lg shadow-lg flex flex-col justify-center items-center">
                      <button
                         className="text-primary text-sm font-semibold"
                         onClick={handlelogoutClick}
