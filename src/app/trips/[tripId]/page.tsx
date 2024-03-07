@@ -4,6 +4,7 @@ import TripReservation from "./components/TripReservation";
 import TripDescription from "./components/TripDescription";
 import { tr } from "date-fns/locale";
 import TripHighlights from "./components/TripHighlights";
+import TripLocation from "./components/TripLocation";
 
 const TripDetails = async ({ params }: { params: { tripId: string } }) => {
    const trip = await db.trip.findUnique({
@@ -27,6 +28,11 @@ const TripDetails = async ({ params }: { params: { tripId: string } }) => {
          <TripDescription description={trip.description} />
 
          <TripHighlights highlights={trip.highlights} />
+
+         <TripLocation
+            location={trip.location}
+            locationDescription={trip.locationDescription}
+         />
       </div>
    );
 };
