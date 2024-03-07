@@ -3,6 +3,7 @@
 import { Menu } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const Header = () => {
@@ -25,7 +26,9 @@ const Header = () => {
    return (
       <header className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center">
          <div className="relative w-[183px] h-[32px]">
-            <Image src="/logo.png" alt="Logo" fill />
+            <Link href="/#">
+               <Image src="/logo.png" alt="Logo" fill />
+            </Link>
          </div>
 
          {status === "unauthenticated" && (
