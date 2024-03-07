@@ -2,7 +2,7 @@ import { db } from "@/lib/prisma";
 import TripItem from "./TripItem";
 
 const RecommendeTrips = async () => {
-   const data = await db.trip.findMany();
+   const data = await db.trip.findMany({});
 
    return (
       <div className="container mx-auto px-5 py-3">
