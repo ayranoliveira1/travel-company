@@ -2,7 +2,6 @@ import { db } from "@/lib/prisma";
 import TripHeader from "./components/TripHeader";
 import TripReservation from "./components/TripReservation";
 import TripDescription from "./components/TripDescription";
-import { tr } from "date-fns/locale";
 import TripHighlights from "./components/TripHighlights";
 import TripLocation from "./components/TripLocation";
 
@@ -21,7 +20,12 @@ const TripDetails = async ({ params }: { params: { tripId: string } }) => {
 
          {/* Reserva */}
 
-         <TripReservation trip={trip} />
+         <TripReservation
+            tripStartDate={trip.startDate}
+            tripEndDate={trip.endDate}
+            maxGuests={trip.maxGuests}
+            tripId={trip.id}
+         />
 
          {/* Description */}
 

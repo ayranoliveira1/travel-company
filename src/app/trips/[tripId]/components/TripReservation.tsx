@@ -3,11 +3,14 @@
 import Button from "@/app/components/TripInput/components/Button";
 import DatePicker from "@/app/components/TripInput/components/DatePicker";
 import Input from "@/app/components/TripInput/components/input";
-import { Trip } from "@prisma/client";
+import { watch } from "node:fs";
 import { Controller, useForm } from "react-hook-form";
 
 interface TripReservationProps {
-   trip: Trip;
+   tripId: string;
+   tripStartDate: Date;
+   tripEndDate: Date;
+   maxGuests: number;
 }
 
 interface TripreservationForm {
@@ -16,7 +19,12 @@ interface TripreservationForm {
    endDate: Date | null;
 }
 
-const TripReservation = ({ trip }: TripReservationProps) => {
+const TripReservation = ({
+   tripStartDate,
+   tripEndDate,
+   maxGuests,
+   tripId,
+}: TripReservationProps) => {
    const {
       register,
       handleSubmit,
@@ -47,6 +55,7 @@ const TripReservation = ({ trip }: TripReservationProps) => {
                      className="w-full"
                      error={!!errors?.startDate}
                      errorMessage={errors?.guests?.message}
+                     minDate={tripStartDate}
                   />
                )}
                control={control}
@@ -68,6 +77,7 @@ const TripReservation = ({ trip }: TripReservationProps) => {
                      className="w-full"
                      error={!!errors?.endDate}
                      errorMessage={errors?.endDate?.message}
+                     maxDate={tripEndDate}
                   />
                )}
                control={control}
@@ -80,7 +90,7 @@ const TripReservation = ({ trip }: TripReservationProps) => {
                   message: "Número de hóspedes é obrigatório ",
                },
             })}
-            placeholder={`Hóspedes (max: ${trip.maxGuests})`}
+            placeholder={`Hóspedes (max: ${maxGuests})`}
             error={!!errors?.guests}
             errorMessage={errors?.guests?.message}
          />
