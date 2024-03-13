@@ -25,7 +25,49 @@ const TripReservation = ({ trip, tripId }: TripReservationProps) => {
       formState: { errors },
       control,
       watch,
+      setError,
    } = useForm<TripreservationForm>();
+
+   const onSubmit = async (data: any) => {
+      const reponse = await fetch("http://localhost:3000/api/trip/check", {
+         method: "POST",
+         body: Buffer.from(
+            JSON.stringify({
+               startDate: data.startDate,
+               endDate: data.endDate,
+               tripId,
+            })
+         ),
+      });
+
+      const res = await reponse.json();
+
+      if (res?.error?.code === "TRIP_ALREADY_RESERVED") {
+         setError("startDate", {
+            type: "manual",
+            message: "Esta data já está reservada!",
+         });
+
+         setError("endDate", {
+            type: "manual",
+            message: "esta data já está reservada!",
+         });
+      }
+
+      if (res?.error?.code === "INVALID_STARt_DATE") {
+         setError("startDate", {
+            type: "manual",
+            message: "Datá inválida",
+         });
+      }
+
+      if (res?.error?.code === "INVALID_END_DATE") {
+         setError("endDate", {
+            type: "manual",
+            message: "Datá inválida",
+         });
+      }
+   };
 
    const starDate = watch("startDate");
    const endDate = watch("endDate");
