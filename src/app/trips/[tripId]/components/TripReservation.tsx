@@ -3,14 +3,13 @@
 import Button from "@/app/components/TripInput/components/Button";
 import DatePicker from "@/app/components/TripInput/components/DatePicker";
 import Input from "@/app/components/TripInput/components/input";
-import { watch } from "node:fs";
+import { Trip } from "@prisma/client";
+import { differenceInDays } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 
 interface TripReservationProps {
    tripId: string;
-   tripStartDate: Date;
-   tripEndDate: Date;
-   maxGuests: number;
+   trip: Trip;
 }
 
 interface TripreservationForm {
@@ -19,22 +18,17 @@ interface TripreservationForm {
    endDate: Date | null;
 }
 
-const TripReservation = ({
-   tripStartDate,
-   tripEndDate,
-   maxGuests,
-   tripId,
-}: TripReservationProps) => {
+const TripReservation = ({ trip, tripId }: TripReservationProps) => {
    const {
       register,
       handleSubmit,
       formState: { errors },
       control,
+      watch,
    } = useForm<TripreservationForm>();
 
-   const onSubmit = (data: any) => {
-      console.log(data);
-   };
+   const starDate = watch("startDate");
+   const endDate = watch("endDate");
 
    return (
       <div className="flex flex-col px-5 gap-3">
@@ -55,7 +49,7 @@ const TripReservation = ({
                      className="w-full"
                      error={!!errors?.startDate}
                      errorMessage={errors?.guests?.message}
-                     minDate={tripStartDate}
+                     minDate={trip.startDate}
                   />
                )}
                control={control}
@@ -77,7 +71,8 @@ const TripReservation = ({
                      className="w-full"
                      error={!!errors?.endDate}
                      errorMessage={errors?.endDate?.message}
-                     maxDate={tripEndDate}
+                     maxDate={trip.endDate}
+                     minDate={starDate ?? trip.startDate}
                   />
                )}
                control={control}
@@ -90,7 +85,7 @@ const TripReservation = ({
                   message: "Número de hóspedes é obrigatório ",
                },
             })}
-            placeholder={`Hóspedes (max: ${maxGuests})`}
+            placeholder={`Hóspedes (max: ${trip.maxGuests})`}
             error={!!errors?.guests}
             errorMessage={errors?.guests?.message}
          />
@@ -98,7 +93,14 @@ const TripReservation = ({
             <p className="text-sm font-medium text-secondary">
                Total (7 noites)
             </p>
-            <p className="text-sm font-medium text-secondary">R$2.660</p>
+            <p className="text-sm font-medium text-secondary">
+               {starDate && endDate
+                  ? `R$${
+                       differenceInDays(endDate, starDate) *
+                       Number(trip.pricePerDay)
+                    }`
+                  : "R$0"}
+            </p>
          </div>
          <div className="w-full pb-10 border-b border-solid border-grayLighter">
             <Button onClick={() => handleSubmit(onSubmit)()} className="w-full">
