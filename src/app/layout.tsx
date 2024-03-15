@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "@/providers/auth";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import ToastProvider from "@/providers/Toast";
 
 const poppins = Poppins({
    subsets: ["latin"],
@@ -24,13 +25,15 @@ export default function RootLayout({
       <html lang="pt-br">
          <body className={poppins.className}>
             <AuthProvider>
-               <div className="flex flex-col h-screen">
-                  <div className="h-[94x]">
-                     <Header />
+               <ToastProvider>
+                  <div className="flex flex-col h-screen">
+                     <div className="h-[94x]">
+                        <Header />
+                     </div>
+                     <div className="flex-1">{children}</div>
+                     <Footer />
                   </div>
-                  <div className="flex-1">{children}</div>
-                  <Footer />
-               </div>
+               </ToastProvider>
             </AuthProvider>
          </body>
       </html>

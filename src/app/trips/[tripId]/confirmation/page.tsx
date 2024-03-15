@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
+import { toast } from "react-toastify";
 
 const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
    const [trip, setTrip] = useState<Trip | null>();
@@ -16,7 +17,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
 
    const router = useRouter();
 
-   const { status } = useSession();
+   const { status, data } = useSession();
 
    const searchParams = useSearchParams();
 
@@ -49,6 +50,34 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
    }, [, searchParams, params, status, router]);
 
    if (!trip) return null;
+
+   const handleBuyClick = async () => {
+      const response = await fetch("/api/trip/reservation", {
+         method: "POST",
+         body: Buffer.from(
+            JSON.stringify({
+               tripId: params.tripId,
+               totalPaid: totalPrice,
+               startDate: searchParams.get("startDate"),
+               endDate: searchParams.get("endDate"),
+               guests: Number(searchParams.get("guests")),
+               userId: (data?.user as any)?.id,
+            })
+         ),
+      });
+
+      if (!response.ok) {
+         return toast.error("Erro ao efetuar reserva", {
+            position: "bottom-center",
+         });
+      }
+
+      toast.success("Reserva efetuada com sucesso", {
+         position: "bottom-center",
+      });
+
+      router.push("/");
+   };
 
    const startDate = new Date(searchParams.get("startDate") as string);
    const endDate = new Date(searchParams.get("endDate") as string);
@@ -104,7 +133,9 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
             <h3 className="font-semibold mt-5">Hóspedes</h3>
             <p>{guests} hóspedes</p>
 
-            <Button className="mt-5">Finalizar compra</Button>
+            <Button className="mt-5" onClick={handleBuyClick}>
+               Finalizar compra
+            </Button>
          </div>
       </div>
    );
