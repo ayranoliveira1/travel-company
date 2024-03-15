@@ -5,6 +5,7 @@ import DatePicker from "@/app/components/TripInput/components/DatePicker";
 import Input from "@/app/components/TripInput/components/input";
 import { Trip } from "@prisma/client";
 import { differenceInDays } from "date-fns";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 
 interface TripReservationProps {
@@ -12,7 +13,7 @@ interface TripReservationProps {
    trip: Trip;
 }
 
-interface TripreservationForm {
+interface TripReservationForm {
    guests: number;
    startDate: Date | null;
    endDate: Date | null;
@@ -26,21 +27,23 @@ const TripReservation = ({ trip, tripId }: TripReservationProps) => {
       control,
       watch,
       setError,
-   } = useForm<TripreservationForm>();
+   } = useForm<TripReservationForm>();
 
-   const onSubmit = async (data: any) => {
-      const reponse = await fetch("http://localhost:3000/api/trip/check", {
+   const router = useRouter();
+
+   const onSubmit = async (data: TripReservationForm) => {
+      const response = await fetch("/api/trip/check", {
          method: "POST",
          body: Buffer.from(
             JSON.stringify({
-               startDate: data.startDate,
                endDate: data.endDate,
+               startDate: data.startDate,
                tripId,
             })
          ),
       });
 
-      const res = await reponse.json();
+      const res = await response.json();
 
       if (res?.error?.code === "TRIP_ALREADY_RESERVED") {
          setError("startDate", {
@@ -55,7 +58,7 @@ const TripReservation = ({ trip, tripId }: TripReservationProps) => {
       }
 
       if (res?.error?.code === "INVALID_STARt_DATE") {
-         setError("startDate", {
+         return setError("startDate", {
             type: "manual",
             message: "Datá inválida",
          });
@@ -67,6 +70,12 @@ const TripReservation = ({ trip, tripId }: TripReservationProps) => {
             message: "Datá inválida",
          });
       }
+
+      router.push(
+         `/trips/${tripId}/confirmation?startDate=${data.startDate?.toISOString()}&endDate=${data.endDate?.toISOString()}&guests=${
+            data.guests
+         }`
+      );
    };
 
    const starDate = watch("startDate");

@@ -1,5 +1,5 @@
 import { db } from "@/lib/prisma";
-import { isBefore } from "date-fns";
+import { differenceInDays, isBefore } from "date-fns";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
       return new NextResponse(
          JSON.stringify({
             error: {
-               code: "INVALID_STARt_DATE",
+               code: "INVALID_START_DATE",
             },
          }),
          {
@@ -34,6 +34,7 @@ export async function POST(request: Request) {
       );
    }
 
+   // Data de fim recebida precisa ser menor ou igual a data de fim da viagem
    if (isBefore(new Date(trip.endDate), new Date(req.endDate))) {
       return new NextResponse(
          JSON.stringify({
@@ -50,6 +51,7 @@ export async function POST(request: Request) {
    const reservations = await db.tripReservation.findMany({
       where: {
          tripId: req.tripId,
+         // Verificar se existe reserva entre as datas
          startDate: {
             lte: new Date(req.endDate),
          },
@@ -63,7 +65,7 @@ export async function POST(request: Request) {
       return new NextResponse(
          JSON.stringify({
             error: {
-               code: "TRIP_ALREADY_RESERVATION",
+               code: "TRIP_ALREADY_RESERVED",
             },
          })
       );
@@ -72,6 +74,10 @@ export async function POST(request: Request) {
    return new NextResponse(
       JSON.stringify({
          success: true,
+         trip,
+         totalPrice:
+            differenceInDays(new Date(req.endDate), new Date(req.startDate)) *
+            Number(trip.pricePerDay),
       })
    );
 }
