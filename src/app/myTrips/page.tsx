@@ -19,19 +19,19 @@ const MyTrips = () => {
 
    const router = useRouter();
 
+   const fetchReservations = async () => {
+      const response = await fetch(
+         `/api/user/${(data?.user as any)?.id}/trips`
+      );
+      const json = await response.json();
+
+      setReservations(json);
+   };
+
    useEffect(() => {
-      if (status === "unauthenticated" || !data?.user) {
+      if (status === "unauthenticated") {
          return router.push("/");
       }
-
-      const fetchReservations = async () => {
-         const response = await fetch(
-            `/api/user/${(data?.user as any)?.id}/trips`
-         );
-         const json = await response.json();
-
-         setReservations(json);
-      };
 
       fetchReservations();
    }, [status, router]);
@@ -46,6 +46,7 @@ const MyTrips = () => {
                <UserReservationItem
                   key={reservation.id}
                   reservation={reservation}
+                  fetchReservations={fetchReservations}
                />
             ))
          ) : (
