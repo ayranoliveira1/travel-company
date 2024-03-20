@@ -10,8 +10,8 @@ const SideMenu = () => {
 
    return (
       <>
-         <SheetHeader className="text-left border-b border-solid border-secondary p-5">
-            <SheetTitle>Menu</SheetTitle>
+         <SheetHeader className="text-left border-b border-solid border-secondary py-5">
+            <SheetTitle className="text-xl">Menu</SheetTitle>
          </SheetHeader>
          <div className="flex flex-col text-left mt-5 gap-3">
             <div className="border border-solid rounded-md py-1 px-3 border-grayLighter">
