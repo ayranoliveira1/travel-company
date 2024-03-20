@@ -1,8 +1,18 @@
 import Button from "@/app/components/TripInput/components/Button";
+import {
+   AlertDialog,
+   AlertDialogAction,
+   AlertDialogCancel,
+   AlertDialogContent,
+   AlertDialogDescription,
+   AlertDialogFooter,
+   AlertDialogHeader,
+   AlertDialogTitle,
+   AlertDialogTrigger,
+} from "@/app/components/ui/alert-dialog";
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ReactCountryFlag from "react-country-flag";
@@ -105,13 +115,34 @@ const UserReservationItem = ({
                </p>
             </div>
 
-            <Button
-               variant="danger"
-               className="mt-5"
-               onClick={handleDeleteClick}
-            >
-               Cancelar
-            </Button>
+            <AlertDialog>
+               <AlertDialogTrigger>
+                  <Button variant="danger" className="mt-5 w-full">
+                     Cancelar
+                  </Button>
+               </AlertDialogTrigger>
+
+               <AlertDialogContent className="w-[90%] bg-white flex flex-col items-center">
+                  <AlertDialogHeader>
+                     <AlertDialogTitle>Cancelar reserva</AlertDialogTitle>
+                     <AlertDialogDescription>
+                        Tem certeza que deseja cancelar essa reserva?
+                     </AlertDialogDescription>
+                  </AlertDialogHeader>
+
+                  <AlertDialogFooter className="flex flex-row items-center gap-2">
+                     <AlertDialogCancel className="w-full px-8 py-1 border-gray-500">
+                        Voltar
+                     </AlertDialogCancel>
+                     <AlertDialogAction
+                        className="mt-2 w-full bg-red-500 hover:bg-red-600 text-white"
+                        onClick={handleDeleteClick}
+                     >
+                        Confirmar
+                     </AlertDialogAction>
+                  </AlertDialogFooter>
+               </AlertDialogContent>
+            </AlertDialog>
          </div>
       </div>
    );
