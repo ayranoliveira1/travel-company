@@ -1,10 +1,12 @@
 "use client";
 
 import { Menu } from "lucide-react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import SideMenu from "./side-menu";
 
 const Header = () => {
    const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -12,11 +14,6 @@ const Header = () => {
 
    const handleLoginClick = () => {
       return signIn("google");
-   };
-
-   const handlelogoutClick = () => {
-      setMenuIsOpen(false);
-      signOut();
    };
 
    const handleOpenMenuClick = () => {
@@ -41,36 +38,26 @@ const Header = () => {
          )}
 
          {status === "authenticated" && data.user?.name && data.user.image && (
-            <div
-               className="flex items-center justify-between gap-4 border-solid border-grayLighter border p-2.5 px-3 rounded-3xl relative"
-               onClick={handleOpenMenuClick}
-            >
-               <Menu size={22} className="cursor-pointer" />
-               <Image
-                  src={data.user?.image}
-                  alt={data.user?.name}
-                  width={24}
-                  height={24}
-                  className="rounded-full"
-               />
-
-               {menuIsOpen && (
-                  <div className=" z-50 absolute top-12 left-0 w-full h-[100px] bg-walterWhite rounded-lg shadow-lg flex flex-col justify-center items-center gap-2">
-                     <Link href="/myTrips" onClick={() => setMenuIsOpen(false)}>
-                        <button className="text-primary text-sm font-semibold">
-                           Minhas Viagens
-                        </button>
-                     </Link>
-
-                     <button
-                        className="text-primary text-sm font-semibold"
-                        onClick={handlelogoutClick}
-                     >
-                        Logout
-                     </button>
+            <Sheet>
+               <SheetTrigger>
+                  <div
+                     className="flex items-center justify-between gap-4 border-solid border-grayLighter border p-2.5 px-3 rounded-3xl relative"
+                     onClick={handleOpenMenuClick}
+                  >
+                     <Menu size={22} className="cursor-pointer" />
+                     <Image
+                        src={data.user?.image}
+                        alt={data.user?.name}
+                        width={24}
+                        height={24}
+                        className="rounded-full"
+                     />
                   </div>
-               )}
-            </div>
+               </SheetTrigger>
+               <SheetContent>
+                  <SideMenu />
+               </SheetContent>
+            </Sheet>
          )}
       </header>
    );
