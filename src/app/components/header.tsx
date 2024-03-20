@@ -39,7 +39,7 @@ const Header = () => {
 
          {status === "authenticated" && data.user?.name && data.user.image && (
             <Sheet>
-               <SheetTrigger>
+               <SheetTrigger asChild>
                   <div
                      className="flex items-center justify-between gap-4 border-solid border-grayLighter border p-2.5 px-3 rounded-3xl relative"
                      onClick={handleOpenMenuClick}
