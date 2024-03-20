@@ -48,7 +48,7 @@ const QuickSearch = () => {
                   src="/inn-icon.png"
                   alt="pouzadas"
                />
-               <p className="text-sm text-grayPrimary">Pouzada</p>
+               <p className="text-sm text-grayPrimary">Pousada</p>
             </div>
          </div>
       </div>
