@@ -146,9 +146,7 @@ const TripReservation = ({ trip, tripId }: TripReservationProps) => {
             type="number"
          />
          <div className="flex justify-between mt-1">
-            <p className="text-sm font-medium text-secondary">
-               Total (7 noites)
-            </p>
+            <p className="text-sm font-medium text-secondary">Total:</p>
             <p className="text-sm font-medium text-secondary">
                {starDate && endDate
                   ? `R$${
