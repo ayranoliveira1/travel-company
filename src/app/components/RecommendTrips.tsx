@@ -6,7 +6,7 @@ const RecommendeTrips = async () => {
 
    return (
       <div className="container mx-auto px-5 py-3">
-         <div className="flex items-center">
+         <div className="flex items-center lg:w-[70%] lg:mx-auto">
             <div className="w-full h-[2px] bg-primaryLighter"></div>
             <h2 className="text-grayPrimary font-medium whitespace-nowrap px-5">
                Destinos Recomendados
@@ -14,7 +14,7 @@ const RecommendeTrips = async () => {
             <div className="w-full h-[2px] bg-primaryLighter"></div>
          </div>
 
-         <div className="flex flex-col items-center mt-5 gap-5">
+         <div className="flex flex-col lg:flex-row lg:px-24 lg:gap-12 lg:flex-wrap lg:mt-10 items-center mt-5 gap-5">
             {data.map((trip) => (
                <TripItem key={trip.id} trip={trip} />
             ))}

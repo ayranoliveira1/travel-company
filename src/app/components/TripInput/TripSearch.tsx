@@ -32,13 +32,14 @@ const Search = () => {
    };
 
    return (
-      <div className="container mx-auto p-4 bg-search-background bg-cover bg-center bg-no-repeat">
-         <h1 className="font-semibold text-xl text-secondary text-center">
+      <div className="mx-auto p-4 bg-search-background bg-cover bg-center bg-no-repeat lg:w-full lg:py-22 lg:h-[300px] lg:flex lg:flex-col lg:items-center lg:justify-center lg:border-b lg:border-t lg:border-gray-100">
+         <h1 className="font-semibold text-xl text-secondary text-center lg:text-2xl">
             Encontre sua proxima <span className="text-primary">viagem!</span>
          </h1>
 
-         <div className="flex flex-col gap-4 mt-5">
+         <div className="flex flex-col gap-4 mt-5 lg:flex-row lg:mx-auto lg:max-w-[740px] lg:p-4 lg:bg-primary lg-mt-12 lg:bg-opacity-20 lg:rounded-lg">
             <Input
+               className="lg:w-[200px]"
                placeholder="Onde você quer ir?"
                error={!!errors.text}
                errorMessage={errors.text?.message}
@@ -58,7 +59,7 @@ const Search = () => {
                         placeholderText="Data de início"
                         onChange={field.onChange}
                         selected={field.value}
-                        className="w-full"
+                        className="lg:w-[200px] w-full"
                         minDate={new Date()}
                      />
                   )}
@@ -73,6 +74,7 @@ const Search = () => {
                         allowDecimals={false}
                         placeholder="Orçamento"
                         onValueChange={field.onChange as any}
+                        className="lg:w-[200px] w-full"
                         value={field.value}
                         onBlur={field.onBlur}
                      />
@@ -81,6 +83,7 @@ const Search = () => {
             </div>
 
             <Button
+               className=""
                onClick={() => {
                   handleSubmit(onSubmit)();
                }}
