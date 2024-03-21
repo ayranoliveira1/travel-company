@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const QuickSearch = () => {
    return (
-      <div className="container mx-auto px-5 py-2 lg:w-[70%]">
+      <div className="container mx-auto px-5 mt-5 py-2 lg:w-[70%]">
          <div className="flex items-center">
             <div className="w-full h-[2px] bg-primaryLighter"></div>
             <h2 className="text-grayPrimary font-medium whitespace-nowrap px-5">
@@ -12,7 +12,7 @@ const QuickSearch = () => {
             </h2>
             <div className="w-full h-[2px] bg-primaryLighter"></div>
          </div>
-         <div className="flex justify-between mt-5">
+         <div className="flex justify-between mt-10">
             <Link href="/trips/search?text=hotel">
                <div className="flex flex-col items-center gap-1">
                   <Image
@@ -68,8 +68,8 @@ const QuickSearch = () => {
                </div>
             </Link>
 
-            <Link href="/trips/search?text=resorts">
-               <div className="hidden lg:flex lg:flex-col lg:items-center gap-1">
+            <Link href="/trips/search?text=turísticos">
+               <div className="hidden lg:flex lg:flex-col lg:items-center mb-5 gap-1">
                   <Castle className="text-grayPrimary h-[30px] w-[30px]" />
                   <p className="text-sm text-grayPrimary">Pontos turísticos</p>
                </div>
