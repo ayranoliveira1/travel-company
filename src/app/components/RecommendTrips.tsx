@@ -14,10 +14,12 @@ const RecommendeTrips = async () => {
             <div className="w-full h-[2px] bg-primaryLighter"></div>
          </div>
 
-         <div className="flex flex-col lg:flex-row lg:px-24 lg:gap-12 lg:flex-wrap lg:mt-10 items-center mt-5 gap-5">
-            {data.map((trip) => (
-               <TripItem key={trip.id} trip={trip} />
-            ))}
+         <div className="flex flex-col lg:flex-row lg:px-24 lg:gap-12 lg:flex-wrap lg:mt-10 items-center my-5 gap-5">
+            {data
+               .filter((trip) => trip.recommended === true)
+               .map((trip) => (
+                  <TripItem key={trip.id} trip={trip} />
+               ))}
          </div>
       </div>
    );

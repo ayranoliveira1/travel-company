@@ -32,7 +32,7 @@ const Search = () => {
    };
 
    return (
-      <div className="mx-auto p-4 bg-search-background bg-cover bg-center bg-no-repeat lg:w-full lg:py-22 lg:h-[300px] lg:flex lg:flex-col lg:items-center lg:justify-center lg:border-b lg:border-t lg:border-gray-100">
+      <div className="mx-auto p-4 bg-search-background bg-cover bg-center bg-no-repeat lg:w-full lg:py-22 lg:h-[300px] lg:flex lg:flex-col lg:items-center lg:justify-center lg:border-b lg:border-gray-100">
          <h1 className="font-semibold text-xl text-secondary text-center lg:text-2xl">
             Encontre sua proxima <span className="text-primary">viagem!</span>
          </h1>
