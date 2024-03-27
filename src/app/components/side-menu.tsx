@@ -15,7 +15,7 @@ const SideMenu = () => {
          </SheetHeader>
          <div className="flex flex-col text-left mt-5 gap-3">
             <div className="border border-solid rounded-md py-1 px-3 border-grayLighter">
-               <Link href="/">
+               <Link href="/" onClick={() => window.location.reload()}>
                   <button className="text-secondary items-center text-medium font-semibold flex gap-2">
                      <Home className="w-5 h-5" />
                      Inicio
@@ -24,7 +24,7 @@ const SideMenu = () => {
             </div>
 
             <div className="border border-solid rounded-md py-1 px-3 border-grayLighter">
-               <Link href="/myTrips">
+               <Link href="/myTrips" onClick={() => window.location.reload()}>
                   <button className="text-secondary text-medium font-semibold flex gap-2">
                      <CalendarCheck className="w-5 h-5" />
                      Minhas Viagens
