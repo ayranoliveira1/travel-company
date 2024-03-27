@@ -8,10 +8,10 @@ interface TripLocationProps {
 
 const TripLocation = ({ location, locationDescription }: TripLocationProps) => {
    return (
-      <div className="flex flex-col px-5 gap-4 pb-5">
-         <h2 className="font-medium text-secondary">Localização</h2>
+      <div className="flex flex-col px-5 gap-4 pb-5 lg:px-48">
+         <h2 className="font-medium text-secondary lg:text-xl">Localização</h2>
 
-         <div className="relative h-[280px] w-full">
+         <div className="lg:hidden relative h-[280px] w-full">
             <Image
                src="/map-mobile.png"
                alt={location}
@@ -20,10 +20,21 @@ const TripLocation = ({ location, locationDescription }: TripLocationProps) => {
                className="rounded-lg shadow-md"
             />
          </div>
+         <div className="hidden relative h-[480px] w-full lg:block">
+            <Image
+               src="/map-desktop.png"
+               alt={location}
+               fill
+               style={{ objectFit: "cover" }}
+               className="rounded-lg shadow-md"
+            />
+         </div>
 
-         <div className="flex flex-col gap-2">
-            <h3 className="text-secondary font-medium text-sm">{location}</h3>
-            <p className="text-xs text-secondary leading-5">
+         <div className="flex flex-col gap-2 lg:gap-5 lg:pb-4">
+            <h3 className="text-secondary font-medium text-sm lg:text-lg">
+               {location}
+            </h3>
+            <p className="text-xs text-secondary leading-5 lg:text-sm">
                {locationDescription}
             </p>
          </div>
