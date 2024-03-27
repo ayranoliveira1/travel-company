@@ -21,7 +21,7 @@ const Header = () => {
    };
 
    return (
-      <header className="container mx-auto p-5 py-0 h-[93px] lg:px-24 flex justify-between items-center">
+      <header className="container mx-auto p-5 py-0 h-[93px] lg:px-24 flex justify-between items-center lg:border-b lg:border-solid lg:border-gray-250">
          <div className="relative w-[183px] h-[32px]">
             <Link href="/#">
                <Image src="/logo.png" alt="Logo" fill />
