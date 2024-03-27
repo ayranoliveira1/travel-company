@@ -20,13 +20,17 @@ const TripDetails = async ({ params }: { params: { tripId: string } }) => {
 
          {/* Reserva */}
 
-         <TripReservation tripId={trip.id} trip={trip} />
+         <div className="flex flex-col lg:mt-10 lg:flex-row lg:px-48 lg:gap-40">
+            <div className="lg:order-2">
+               <TripReservation tripId={trip.id} trip={trip} />
+            </div>
 
-         {/* Description */}
-
-         <TripDescription description={trip.description} />
-
-         <TripHighlights highlights={trip.highlights} />
+            <div className="lg:order-1 lg:flex lg:flex-col lg:gap-10">
+               {/* Description */}
+               <TripDescription description={trip.description} />
+               <TripHighlights highlights={trip.highlights} />
+            </div>
+         </div>
 
          <TripLocation
             location={trip.location}

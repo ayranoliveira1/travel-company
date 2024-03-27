@@ -82,7 +82,12 @@ const TripReservation = ({ trip, tripId }: TripReservationProps) => {
    const endDate = watch("endDate");
 
    return (
-      <div className="flex flex-col px-5 gap-3">
+      <div className="flex flex-col px-5 gap-3 lg:min-w-[380px] lg:py-8 lg:border lg:border-l-grayLighter lg:rounded-lg lg:shadow-md">
+         <p className="hidden text-lg text-secondary font-semibold lg:block">
+            ${Number(trip.pricePerDay)}{" "}
+            <span className="text-sm font-medium">/ noite</span>
+         </p>
+
          <div className="flex gap-4">
             <Controller
                name="startDate"
@@ -156,7 +161,7 @@ const TripReservation = ({ trip, tripId }: TripReservationProps) => {
                   : "R$0"}
             </p>
          </div>
-         <div className="w-full pb-10 border-b border-solid border-grayLighter">
+         <div className="w-full pb-10 lg:pb-0 border-b border-solid border-grayLighter lg:border-none">
             <Button onClick={() => handleSubmit(onSubmit)()} className="w-full">
                Reservar agora
             </Button>
