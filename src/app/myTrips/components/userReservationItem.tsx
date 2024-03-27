@@ -54,7 +54,7 @@ const UserReservationItem = ({
 
    return (
       <div>
-         <div className="flex flex-col p-5 mt-5 border-grayLighter border-solid border shadow-lg rounded-lg">
+         <div className="flex flex-col p-5 mt-5 border-grayLighter border-solid border shadow-lg rounded-lg lg:min-w-[400px]">
             <div className="flex items-center gap-3 pb-5 border-b border-solid border-grayLighter">
                <div className="relative h-[106px] w-[124px]">
                   <Image
