@@ -6,12 +6,12 @@ export async function DELETE(
    { params: { reservationId } }: { params: { reservationId: string } }
 ) {
    if (!reservationId) {
-      return {
-         status: 400,
-         body: {
+      return new NextResponse(
+         JSON.stringify({
             message: "Missing reservationId",
-         },
-      };
+         }),
+         { status: 400 }
+      );
    }
 
    const reservation = await db.tripReservation.delete({

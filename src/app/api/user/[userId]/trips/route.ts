@@ -10,12 +10,9 @@ export async function GET(
    console.log({ userId });
 
    if (!userId) {
-      return {
+      return new NextResponse(JSON.stringify({ message: "Missing userId" }), {
          status: 400,
-         body: {
-            message: "Missing userId",
-         },
-      };
+      });
    }
 
    const reservations = await db.tripReservation.findMany({

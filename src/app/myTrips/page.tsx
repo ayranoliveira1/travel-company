@@ -34,7 +34,7 @@ const MyTrips = () => {
       }
 
       fetchReservations();
-   }, [status, router, fetchReservations]);
+   }, [status, router]);
 
    return (
       <div className="container mx-auto p-5 lg:px-24">
