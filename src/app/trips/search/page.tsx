@@ -6,9 +6,8 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Trips = () => {
-   const [trips, setTrips] = useState<Trip[]>([]);
-
    const searchParams = useSearchParams();
+   const [trips, setTrips] = useState<Trip[]>([]);
 
    useEffect(() => {
       const fetchTrips = async () => {

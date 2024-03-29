@@ -41,6 +41,8 @@ const generateSearchQuery = (
       };
    }
 
+   console.log({ budget });
+
    if (budget !== "undefined" && budget !== "null") {
       searchQuery = {
          ...searchQuery,
@@ -54,6 +56,7 @@ const generateSearchQuery = (
          ],
       };
    }
+
    return searchQuery;
 };
 
@@ -65,7 +68,12 @@ export async function GET(request: Request) {
    const budget = searchParams.get("budget");
 
    if (!text) {
-      return new NextResponse(JSON.stringify([]), { status: 200 });
+      return new NextResponse(
+         JSON.stringify({
+            message: "Missing text parameter",
+         }),
+         { status: 400 }
+      );
    }
 
    const trips = await db.trip.findMany({
