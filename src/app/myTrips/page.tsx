@@ -55,7 +55,7 @@ const MyTrips = () => {
                   <p className="mt-2 font-medium text-grayPrimary">
                      Nenhuma viagem encontrada
                   </p>
-                  <Link href="/trips">
+                  <Link href="/allTrips">
                      <Button className="w-full mt-2">
                         Ver viagens disponíveis
                      </Button>
