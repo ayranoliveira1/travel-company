@@ -10,6 +10,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 import { toast } from "react-toastify";
+import { loadStripe } from "@stripe/stripe-js";
 
 const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
    const [trip, setTrip] = useState<Trip | null>();
@@ -52,16 +53,18 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
    if (!trip) return null;
 
    const handleBuyClick = async () => {
-      const response = await fetch("/api/trip/reservation", {
+      const response = await fetch("/api/payment", {
          method: "POST",
          body: Buffer.from(
             JSON.stringify({
                tripId: params.tripId,
-               totalPaid: totalPrice,
+               totalPrice,
                startDate: searchParams.get("startDate"),
                endDate: searchParams.get("endDate"),
                guests: Number(searchParams.get("guests")),
-               userId: (data?.user as any)?.id,
+               coverImage: trip.coverImage,
+               name: trip.name,
+               description: trip.description,
             })
          ),
       });
@@ -72,11 +75,17 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
          });
       }
 
+      const { sessionId } = await response.json();
+
+      const stripe = await loadStripe(
+         process.env.NEXT_PUBLIC_STRIPE_KEY as string
+      );
+
+      await stripe?.redirectToCheckout({ sessionId });
+
       toast.success("Reserva efetuada com sucesso", {
          position: "bottom-center",
       });
-
-      router.push("/");
    };
 
    const startDate = new Date(searchParams.get("startDate") as string);
