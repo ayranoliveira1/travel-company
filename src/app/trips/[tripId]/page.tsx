@@ -6,6 +6,7 @@ import TripHighlights from "./components/TripHighlights";
 import TripLocation from "./components/TripLocation";
 
 const TripDetails = async ({ params }: { params: { tripId: string } }) => {
+   // Fetch trip data
    const trip = await db.trip.findUnique({
       where: {
          id: params.tripId,
