@@ -14,6 +14,7 @@ export async function DELETE(
       );
    }
 
+   // Delete reservation
    const reservation = await db.tripReservation.delete({
       where: {
          id: reservationId,

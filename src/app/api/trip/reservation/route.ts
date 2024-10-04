@@ -22,6 +22,7 @@ export async function POST(request: Request) {
       );
    }
 
+   // Create reservation
    await db.tripReservation.create({
       data: {
          startDate: new Date(startDate),
